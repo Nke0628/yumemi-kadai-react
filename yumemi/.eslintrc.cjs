@@ -12,6 +12,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'plugin:storybook/recommended',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',
@@ -26,7 +27,9 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [
       'error',
-      { extensions: ['.js', '.jsx', 'ts', 'tsx'] },
+      {
+        extensions: ['.js', '.jsx', 'ts', 'tsx'],
+      },
     ],
     'import/extensions': [
       'error',
