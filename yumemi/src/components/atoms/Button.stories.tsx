@@ -7,6 +7,6 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>
 
-export const test: ComponentStory<typeof Button> = () => (
+export const commom: ComponentStory<typeof Button> = () => (
   <Button onClickButton={() => {}}>Click me</Button>
 )
