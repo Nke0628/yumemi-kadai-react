@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, redirect, useNavigate } from 'react-router-dom'
 import InputBox from '../atoms/InputBox'
 import Button from '../atoms/Button'
 import { resasApiKey } from '../../types/types'
 import axios from 'axios'
 import Spinner from '../atoms/Spinner'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export const Top: React.FC = () => {
+  const { setAuthApiKey } = useContext(AuthContext)
   const [isLoading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>(``)
   const [resasApiKey, setResasApiKey] = useState<resasApiKey>('')
@@ -28,6 +30,7 @@ export const Top: React.FC = () => {
           throw new Error('error')
         } else {
           setLoading(false)
+          setAuthApiKey(resasApiKey)
           navigate('/contents')
         }
       })
