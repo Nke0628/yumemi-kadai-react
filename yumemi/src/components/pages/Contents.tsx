@@ -25,11 +25,6 @@ export const Contents: React.FC = () => {
     <>
       <h1 className="text-center font-bold my-8">都道府県人口推移グラフ</h1>
       <div>Contents{authApiKey}</div>
-      {prefectures.map((prefecture) => (
-        <>
-          <p key={prefecture.prefCode}>{prefecture.prefName}</p>
-        </>
-      ))}
     </>
   )
 }
