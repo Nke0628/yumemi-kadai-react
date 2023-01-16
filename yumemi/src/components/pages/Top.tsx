@@ -3,9 +3,9 @@ import { Link, redirect, useNavigate } from 'react-router-dom'
 import InputBox from '../atoms/InputBox'
 import Button from '../atoms/Button'
 import { resasApiKey } from '../../types/types'
-import axios from 'axios'
 import Spinner from '../atoms/Spinner'
 import { AuthContext } from '../../contexts/AuthContext'
+import { fetchPrefectures } from '../../apis/ResasApi'
 
 export const Top: React.FC = () => {
   const { setAuthApiKey } = useContext(AuthContext)
@@ -14,30 +14,25 @@ export const Top: React.FC = () => {
   const [resasApiKey, setResasApiKey] = useState<resasApiKey>('')
   const navigate = useNavigate()
 
-  const onClickButton = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const onClickButton = async (
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
+  ) => {
     e.preventDefault()
     setLoading(true)
-    const axiosInstance = axios.create({
-      baseURL: 'https://opendata.resas-portal.go.jp/api/v1/prefectures',
-      headers: {
-        'X-API-KEY': resasApiKey,
-      },
-    })
-    axiosInstance
-      .get('')
-      .then((res) => {
-        if (res.data.statusCode === '403') {
-          throw new Error('error')
-        } else {
-          setLoading(false)
-          setAuthApiKey(resasApiKey)
-          navigate('/contents')
-        }
-      })
-      .catch((error) => {
-        setError('error')
+
+    try {
+      const response = await fetchPrefectures({}, resasApiKey)
+      if (response.statusCode === '403') {
+        throw new Error('error')
+      } else {
         setLoading(false)
-      })
+        setAuthApiKey(resasApiKey)
+        navigate('/contents')
+      }
+    } catch (e) {
+      setError('error')
+      setLoading(false)
+    }
   }
 
   const onClickbackButton = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
