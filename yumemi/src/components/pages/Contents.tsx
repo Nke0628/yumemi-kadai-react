@@ -23,7 +23,18 @@ const Contents: React.FC = () => {
         setActionError('error')
       }
     })()
-  }, [])
+  }, [authApiKey, navigate])
+
+  if (actionError) {
+    return (
+      <>
+        <h1 className="text-center font-bold my-8">都道府県人口推移グラフ</h1>
+        <div className="mx-auto w-full max-w-md text-center">
+          <p className="my-4">APIの呼び出しに失敗しました。</p>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
