@@ -8,5 +8,5 @@ export default {
 } as ComponentMeta<typeof InputBox>
 
 export const commom: ComponentStory<typeof InputBox> = () => (
-  <InputBox onChange={() => {}}></InputBox>
+  <InputBox onChange={() => {}} />
 )

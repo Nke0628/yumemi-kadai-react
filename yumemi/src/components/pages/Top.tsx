@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import InputBox from '../atoms/InputBox'
 import Button from '../atoms/Button'
 import { resasApiKey } from '../../types/types'
 import Spinner from '../atoms/Spinner'
 import { AuthContext } from '../../contexts/AuthContext'
-import { fetchPrefectures } from '../../apis/ResasApi'
+import fetchPrefectures from '../../apis/ResasApi'
 
 export const Top: React.FC = () => {
   const { setAuthApiKey } = useContext(AuthContext)
@@ -66,7 +66,7 @@ export const Top: React.FC = () => {
             onChange={(inputResasApikey) => {
               setResasApiKey(inputResasApikey)
             }}
-          ></InputBox>
+          />
         </div>
         <div className="text-right">
           <Button onClickButton={(e) => onClickButton(e)}>送信開始</Button>

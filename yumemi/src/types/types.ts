@@ -1,8 +1,8 @@
 export type resasApiKey = string
 
-export type prefecture = {
+export type prefectureType = {
   prefCode: number
   prefName: string
 }
 
-export type prefectures = prefecture[]
+export type prefecturesType = prefectureType[]
