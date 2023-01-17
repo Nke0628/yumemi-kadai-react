@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 
-export class AjaxReqest {
+class AjaxReqest {
   request: AxiosInstance
 
   constructor(timeout = 600000) {
@@ -10,7 +10,7 @@ export class AjaxReqest {
     })
   }
 
-  get(url: string, data: object = {}, apiKey: string) {
+  get(url: string, apiKey: string, data: object = {}) {
     return this.request.get(url, {
       params: data,
       headers: {
@@ -19,3 +19,5 @@ export class AjaxReqest {
     })
   }
 }
+
+export default AjaxReqest

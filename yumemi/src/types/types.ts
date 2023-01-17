@@ -1,4 +1,4 @@
-export type resasApiKey = string
+export type resasApiKeyType = string
 
 export type prefectureType = {
   prefCode: number

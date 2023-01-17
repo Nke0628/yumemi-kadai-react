@@ -8,6 +8,7 @@ import CheckBoxWithLabel from '../atoms/CheckBoxWithLabel'
 const Contents: React.FC = () => {
   const { authApiKey } = useContext(AuthContext)
   const [prefectures, setPrefectures] = useState<prefecturesType>([])
+  const [actionError, setActionError] = useState<string>(``)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -18,7 +19,9 @@ const Contents: React.FC = () => {
       try {
         const response = await fetchPrefectures({}, authApiKey)
         setPrefectures(response.result)
-      } catch (e) {}
+      } catch (e) {
+        setActionError('error')
+      }
     })()
   }, [])
 

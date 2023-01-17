@@ -7,6 +7,6 @@ export default {
   component: InputBox,
 } as ComponentMeta<typeof InputBox>
 
-export const commom: ComponentStory<typeof InputBox> = () => (
+export const Commom: ComponentStory<typeof InputBox> = () => (
   <InputBox onChange={() => {}} />
 )

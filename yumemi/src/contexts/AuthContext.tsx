@@ -7,7 +7,7 @@ type authContextType = {
 
 export const AuthContext = createContext<authContextType>({
   authApiKey: '',
-  setAuthApiKey: (authApiKey) => {},
+  setAuthApiKey: () => {},
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
