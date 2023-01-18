@@ -1,4 +1,4 @@
-import React, { Children, createContext, useState } from 'react'
+import React, { createContext, useState } from 'react'
 
 type authContextType = {
   authApiKey: string
@@ -7,7 +7,7 @@ type authContextType = {
 
 export const AuthContext = createContext<authContextType>({
   authApiKey: '',
-  setAuthApiKey: (authApiKey) => {},
+  setAuthApiKey: () => {},
 })
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({

@@ -25,6 +25,19 @@ module.exports = {
   rules: {
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/function-component-definition': [
+      2,
+      { namedComponents: 'arrow-function' },
+    ],
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error'],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.stories.*', '**/.storybook/**/*.*'],
+        peerDependencies: true,
+      },
+    ],
     'react/jsx-filename-extension': [
       'error',
       {

@@ -1,23 +1,20 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, redirect, useNavigate } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import InputBox from '../atoms/InputBox'
 import Button from '../atoms/Button'
-import { resasApiKey } from '../../types/types'
+import { resasApiKeyType } from '../../types/types'
 import Spinner from '../atoms/Spinner'
 import { AuthContext } from '../../contexts/AuthContext'
-import { fetchPrefectures } from '../../apis/ResasApi'
+import fetchPrefectures from '../../apis/ResasApi'
 
-export const Top: React.FC = () => {
+const Top: React.FC = () => {
   const { setAuthApiKey } = useContext(AuthContext)
   const [isLoading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string>(``)
-  const [resasApiKey, setResasApiKey] = useState<resasApiKey>('')
+  const [actionError, setActionError] = useState<string>(``)
+  const [resasApiKey, setResasApiKey] = useState<resasApiKeyType>('')
   const navigate = useNavigate()
 
-  const onClickButton = async (
-    e: React.MouseEvent<HTMLElement, MouseEvent>,
-  ) => {
-    e.preventDefault()
+  const onClickButton = async () => {
     setLoading(true)
 
     try {
@@ -29,27 +26,27 @@ export const Top: React.FC = () => {
         setAuthApiKey(resasApiKey)
         navigate('/contents')
       }
-    } catch (e) {
-      setError('error')
+    } catch (error) {
+      setActionError('error')
       setLoading(false)
     }
   }
 
-  const onClickbackButton = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    setError('')
+  const onClickbackButton = () => {
+    setActionError('')
   }
 
   if (isLoading) {
     return <Spinner />
   }
 
-  if (error) {
+  if (actionError) {
     return (
       <>
         <h1 className="text-center font-bold my-8">都道府県人口推移グラフ</h1>
         <div className="mx-auto w-full max-w-md text-center">
           <p className="my-4">APIの呼び出しに失敗しました。</p>
-          <Button onClickButton={(e) => onClickbackButton(e)}>戻る</Button>
+          <Button onClickButton={() => onClickbackButton()}>戻る</Button>
         </div>
       </>
     )
@@ -66,12 +63,14 @@ export const Top: React.FC = () => {
             onChange={(inputResasApikey) => {
               setResasApiKey(inputResasApikey)
             }}
-          ></InputBox>
+          />
         </div>
         <div className="text-right">
-          <Button onClickButton={(e) => onClickButton(e)}>送信開始</Button>
+          <Button onClickButton={() => onClickButton()}>送信開始</Button>
         </div>
       </form>
     </>
   )
 }
+
+export default Top

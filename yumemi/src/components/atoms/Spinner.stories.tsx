@@ -7,4 +7,4 @@ export default {
   component: Spinner,
 } as ComponentMeta<typeof Spinner>
 
-export const commom: ComponentStory<typeof Spinner> = () => <Spinner></Spinner>
+export const Commom: ComponentStory<typeof Spinner> = () => <Spinner />
