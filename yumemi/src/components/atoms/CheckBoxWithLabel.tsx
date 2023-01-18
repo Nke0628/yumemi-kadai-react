@@ -2,8 +2,8 @@ import React from 'react'
 
 type Props = {
   labelText: string
-  value: number | string
-  onCheck: (value: number | string) => void
+  value: string
+  onCheck: (value: string, checkd: boolean) => void
 }
 
 const CheckBoxWithLabel: React.FC<Props> = ({
@@ -16,7 +16,7 @@ const CheckBoxWithLabel: React.FC<Props> = ({
       id={`default-checkbox-${value}`}
       type="checkbox"
       value={value}
-      onChange={(e) => onCheck(e.target.value)}
+      onChange={(e) => onCheck(e.target.value, e.target.checked)}
       className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
     />
     <label
