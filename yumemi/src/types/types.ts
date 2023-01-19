@@ -6,3 +6,13 @@ export type prefectureType = {
 }
 
 export type prefecturesType = prefectureType[]
+
+export type populationType = {
+  prefName: string
+  population: {
+    year: number
+    value: number
+  }[]
+}
+
+export type populationListType = populationType[]

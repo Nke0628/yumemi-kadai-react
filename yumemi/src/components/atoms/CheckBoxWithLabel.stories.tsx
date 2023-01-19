@@ -8,5 +8,9 @@ export default {
 } as ComponentMeta<typeof CheckBoxWithLabel>
 
 export const Commom: ComponentStory<typeof CheckBoxWithLabel> = () => (
-  <CheckBoxWithLabel value={1} onCheck={() => {}} labelText="checkbox sample" />
+  <CheckBoxWithLabel
+    value="1"
+    onCheck={() => {}}
+    labelText="checkbox sample"
+  />
 )

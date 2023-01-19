@@ -2,14 +2,54 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import fetchPrefectures from '../../apis/ResasApi'
 import { AuthContext } from '../../contexts/AuthContext'
-import { prefecturesType } from '../../types/types'
+import {
+  populationListType,
+  populationType,
+  prefecturesType,
+  prefectureType,
+} from '../../types/types'
 import CheckBoxWithLabel from '../atoms/CheckBoxWithLabel'
+import AjaxReqest from '../../modules/AjaxRequest'
+import HighChart from '../atoms/HighChart'
 
 const Contents: React.FC = () => {
   const { authApiKey } = useContext(AuthContext)
   const [prefectures, setPrefectures] = useState<prefecturesType>([])
   const [actionError, setActionError] = useState<string>(``)
+  const [populationList, setPopulationList] = useState<populationListType>([])
   const navigate = useNavigate()
+
+  const onCheck = async (value: string, checked: boolean) => {
+    const response = await new AjaxReqest().get(
+      'population/composition/perYear',
+      authApiKey,
+      {
+        prefCode: value,
+        cityCode: '-',
+      },
+    )
+    const targetPrefecture: prefectureType | undefined = prefectures.find(
+      (prefecture) => prefecture.prefCode === Number(value),
+    )
+    const tmpPopulationList = populationList.slice()
+    if (targetPrefecture !== undefined) {
+      if (checked) {
+        const targetPopulation: populationType = {
+          prefName: targetPrefecture.prefName,
+          population: response.data.result.data[0].data,
+        }
+        tmpPopulationList.push(targetPopulation)
+        setPopulationList(tmpPopulationList)
+      } else {
+        const deleteIndex = tmpPopulationList.findIndex(
+          (prefecture) => prefecture.prefName === targetPrefecture.prefName,
+        )
+        if (deleteIndex === -1) return
+        tmpPopulationList.splice(deleteIndex, 1)
+        setPopulationList(tmpPopulationList)
+      }
+    }
+  }
 
   useEffect(() => {
     if (!authApiKey) {
@@ -44,12 +84,13 @@ const Contents: React.FC = () => {
         {prefectures.map((prefecture) => (
           <CheckBoxWithLabel
             key={prefecture.prefCode}
-            value={prefecture.prefCode}
-            onCheck={() => {}}
+            value={String(prefecture.prefCode)}
+            onCheck={(value, checked) => onCheck(value, checked)}
             labelText={prefecture.prefName}
           />
         ))}
       </div>
+      <HighChart populationList={populationList} />
     </>
   )
 }
